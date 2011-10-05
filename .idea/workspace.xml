@@ -809,7 +809,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="668" y="349" width="1252" height="776" extended-state="1" />
+    <frame x="863" y="362" width="1252" height="776" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28096426" sideWeight="0.68421054" order="3" side_tool="false" content_ui="tabs" />
