@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  uid: 1
+  pid: 1
+  title: MyString
+  vote_num: 1
+  content: MyText
+
+two:
+  uid: 1
+  pid: 1
+  title: MyString
+  vote_num: 1
+  content: MyText

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Online Vote and Post System</title>
+<%= stylesheet_link_tag "scaffold" %>
+<%= stylesheet_link_tag "depot" , :media => "all" %>
+<%= javascript_include_tag :defaults %>
+<%= csrf_meta_tag %>
+</head>
+<body id="store">
+<div id="banner">
+<%= image_tag("ncsu12.png" ) %>
+<%= @page_title || "Vote and Post YOURSELF" %>
+</div>
+<div id="columns">
+<div id="side">
+
+<a href="http://localhost:3000">Home</a><br />
+<a href="http://localhost:3000/users/new">Create User</a><br />
+<a href="http://localhost:3000/login">Login</a><br />
+<% if session[:user_id] %>
+<br />
+
+<%= link_to 'Read The Post', products_path %><br />
+<%  if User.find(session[:user_id]).admin == 1 %>
+<%= link_to 'Users', users_path %><br />
+<% end %>
+<br />
+<%= button_to 'Logout', logout_path, :method => :delete %>
+<% end %>
+</div>
+<div id="main">
+<%= yield %>
+</div>
+</div>
+</body>
+</html>

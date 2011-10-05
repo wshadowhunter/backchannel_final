@@ -1,0 +1,31 @@
+<h1>Listing reply_topics</h1>
+
+<table>
+  <tr>
+    <th>Uid</th>
+    <th>Pid</th>
+    <th>Title</th>
+    <th>Vote num</th>
+    <th>Content</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @reply_topics.each do |reply_topic| %>
+  <tr>
+    <td><%= reply_topic.uid %></td>
+    <td><%= reply_topic.pid %></td>
+    <td><%= reply_topic.title %></td>
+    <td><%= reply_topic.vote_num %></td>
+    <td><%= reply_topic.content %></td>
+    <td><%= link_to 'Show', reply_topic %></td>
+    <td><%= link_to 'Edit', edit_reply_topic_path(reply_topic) %></td>
+    <td><%= link_to 'Destroy', reply_topic, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Reply topic', new_reply_topic_path %>

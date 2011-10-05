@@ -1,0 +1,62 @@
+<div id="product_list">
+    <h1>Listing posts</h1>
+
+<% @products.sort!{ |a,b| b.vote_num+((b.created_at) - Time.now) <=> a.vote_num+((b.created_at) - Time.now) }%>
+<% @products.each do |product| %>
+<table>
+    <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
+    <td class="list_description">
+        <dl>
+            <dt><%= product.title %></dt>
+            <dt>Name:<%= product.name %></dt>
+            <dd><%= truncate(strip_tags(product.description),
+                    :length => 80) %></dd>
+        </dl>
+    <%  if session[:user_id] %>
+    <%  if User.find(session[:user_id]).admin == 1 %>
+    <%= button_to "delete topic", product, :method=>:delete, :class=>:destroy %>
+    <% end %>
+    <% end %>
+    <%= button_to "Vote This", votes_url(:pid => product.id, :uid => session[:user_id], :sub_level => 0),:action => "create" %>
+    <%= button_to "Reply", reply_topics_url(:pid => product.id, :uid => session[:user_id]),:action => "create" %>
+    </td>
+    <td class="list_actions">
+    <%= link_to 'Show', product %><br/>
+    <%= link_to 'Edit', edit_product_path(product) %><br/>
+    <tag>Vote number: <%= product.vote_num %></tag>
+    </td>
+    </tr>
+
+
+    <% @reply=ReplyTopic.find(:all, :conditions => ["pid = '#{product.id}' "]) %>
+    <% @sub_level = 1 %>
+    <% @reply.each do |reply| %>
+        <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
+        <td class="list_description">
+            <dl>
+                <dt>Reply <%= product.title %>: <%= reply.title %></dt>
+                <dt>Name:<%= reply.name %></dt>
+                <dd><%= truncate(strip_tags(reply.content),
+                        :length => 80) %></dd>
+            </dl>
+        <%  if session[:user_id] %>
+        <%  if User.find(session[:user_id]).admin == 1 %>
+        <%= button_to "delete reply", reply, :method=>:delete, :class=>:destroy %>
+        <% end %>
+        <% end %>
+        <%= button_to "Vote This", votes_url(:pid => product.id, :uid => session[:user_id],:rid =>reply.id ,:sub_level => @sub_level),:action => "create" %>
+        </td>
+        <td class="list_actions">
+        <tag>Vote number: <%= reply.vote_num %></tag>
+        </td>
+        </tr>
+    <% @sub_level = @sub_level + 1 %>
+    <% end %>
+ </table>
+ <br> </br>
+ <br> </br>
+<% end %>
+
+</div>
+<br />
+<%= link_to 'Post a Question ', new_product_path %>
