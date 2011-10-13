@@ -1,8 +1,9 @@
 <div id="product_list">
     <h1>Listing posts</h1>
 
-<% @products.sort!{ |a,b| b.vote_num+((b.created_at) - Time.now) <=> a.vote_num+((b.created_at) - Time.now) }%>
+<% @products.sort!{ |a,b| (b.vote_num)*24*60*60 + ((b.created_at) - Time.now) <=> (a.vote_num)*24*60*60 + ((a.created_at) - Time.now) }%>
 <% @products.each do |product| %>
+      <% if (product.vote_num)*24*60*60 + ((product.created_at) - Time.now) > 0  %>
 <table>
     <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
     <td class="list_description">
@@ -56,6 +57,7 @@
  <br> </br>
  <br> </br>
 <% end %>
+      <% end %>
 
 </div>
 <br />
